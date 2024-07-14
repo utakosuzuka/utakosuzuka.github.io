@@ -1,0 +1,246 @@
+@use 'setting' as *;
+@use 'mixin' as *;
+/*-----------------------------------------------------------------------------------------
+    ヘッダー
+-----------------------------------------------------------------------------------------*/
+@include header {
+position: fixed;
+top: 0;
+left: 0;
+z-index: 99;
+width: 100%;
+padding: 0 20px;
+line-height: 1;
+/*background-color: rgba($color: #ffffff, $alpha: 0.1);*/
+font-size: 15px;
+@include media-max($BP_TB){
+    font-size: 12px;
+}
+a {
+    text-decoration: none;
+    color: $c_t;
+}
+    .logo {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: 240px;
+        z-index: 101;
+        @include media-max(1500px){
+            width: 220px;
+        }
+        @include media-max(1300px){
+            width: 210px;
+        }
+        @include media-max(1200px){
+            width: 200px;
+        }
+        @include media-max($BP_TB){
+            top: 6px;
+            left: 6px;
+            width: 150px;
+        }
+    }
+    ul.nav {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 60px;
+        li {
+            padding: 0 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 1px rgba($color: #ffffff, $alpha: 0.8), -1px -1px 1px #FFF,
+            -1px 1px 1px rgba($color: #ffffff, $alpha: 0.8), 1px -1px 1px rgba($color: #ffffff, $alpha: 0.8),
+            0px 1px 1px rgba($color: #ffffff, $alpha: 0.8),  0 -1px 1px rgba($color: #ffffff, $alpha: 0.8),
+            -1px 0 0 rgba($color: #ffffff, $alpha: 0.8), 1px 0 0 rgba($color: #ffffff, $alpha: 0.8);
+            @include media-min($BP_TM){
+                transition: all 0.2s ease-in-out;
+                &:hover {
+                    transform: translateY(-5px);
+                }
+            }
+        }
+        @include media-max($BP_TB){
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 380px;
+            margin: auto;
+            height: auto;
+            overflow: auto;
+            li {
+                position: relative;
+                flex-basis: 50%;
+                margin-top: 30px;
+                padding: 0;
+                font-size: 16px;
+                font-weight: 600;
+                text-shadow: none;
+                a {
+                    overflow: hidden;
+                    display: inline-block;
+                    padding: 0 3px 5px 0;
+                    border-bottom: solid 2px;
+                    span {
+                        display: inline-block;
+                        transform: translateY(60px);
+                    }
+                }
+            }
+            &.is-on li a span {
+                animation-name: sphead;
+                animation-duration: 0.7s;
+                animation-delay: 0.2s;
+                animation-fill-mode: forwards;
+                animation-timing-function: ease-out;
+                will-change: transform;
+            }
+        }
+    }
+    @include media-max($BP_TB){
+        .spWraper {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            padding: 100px 10px 100px 30px;
+            width: 100%;
+            height: 101vh;
+            background-color: rgba($color: #ffffff, $alpha: 0.95);
+            @include bgimg('81844510_p0.webp',80%,90%);
+            background-size: 185px auto;
+        }
+    }
+    .menu {
+        display: none;
+        @include media-max($BP_TB){
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 16px;
+            @include jost();
+            font-weight: 800;
+            font-size: 32px;
+            line-height: 1;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 1px rgba($color: #ffffff, $alpha: 0.8), -1px -1px 1px #FFF,
+            -1px 1px 1px rgba($color: #ffffff, $alpha: 0.8), 1px -1px 1px rgba($color: #ffffff, $alpha: 0.8),
+            0px 1px 1px rgba($color: #ffffff, $alpha: 0.8),  0 -1px 1px rgba($color: #ffffff, $alpha: 0.8),
+            -1px 0 0 rgba($color: #ffffff, $alpha: 0.8), 1px 0 0 rgba($color: #ffffff, $alpha: 0.8);
+        }
+    }
+    .close {
+        display: none;
+        @include media-max($BP_TB){
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 16px;
+            @include jost();
+            font-weight: 800;
+            font-size: 32px;
+            line-height: 1;
+            letter-spacing: 1px;
+            overflow: hidden;
+            span {
+                display: inline-block;
+                opacity: 0;
+            }
+            &.is-on span {
+                animation-name: closeAnime;
+                animation-duration: 0.65s;
+                animation-fill-mode: forwards;
+                animation-delay: 0.25s;
+                animation-timing-function: ease-out;
+                will-change: transform;
+            }
+        }
+    }
+}
+
+@keyframes sphead {
+	from {
+		transform: translateY(60px);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+@keyframes closeAnime {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+
+/*-----------------------------------------------------------------------------------------
+    フッター
+-----------------------------------------------------------------------------------------*/
+@include footer {
+border-top: solid 1px #dadada;
+background-color: #ffffff;
+box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.05);
+padding: 30px 10px 40px;
+text-align: center;
+@include media-max($BP_TB){
+    padding: 24px 0 40px;
+}
+    .caution {
+        margin-top: 20px;
+        @include media-max($BP_TB){
+            font-size: 12px;
+            padding: 0 30px;
+            line-height: 2;
+        }
+    }
+    .nav {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        @include media-max($BP_TB){
+            margin-top: 12px;
+        }
+        li {
+            padding: 0 20px;
+            border-left: dotted 1px;
+            line-height: 1;
+            @include media-max($BP_TB){
+                margin-top: 20px;
+                flex-basis: 33.3333333%;
+                padding: 0;
+                font-size: 12px;
+                &:nth-child(4) {
+                    border-left: none;
+                }
+            }
+            &:first-child {
+                border-left: none;
+            }
+            a {
+                text-decoration: none;
+                color: $c_t;
+            }
+        }
+        &.col2 li {
+            @include media-max($BP_TB){
+                flex-basis: 50%;
+                &:nth-child(odd) {
+                    border-left: none;
+                }
+                &:nth-child(4) {
+                    border-left: dotted 1px;
+                }
+            }
+        }
+    }
+    .copy {
+        margin-top: 30px;
+    }
+}

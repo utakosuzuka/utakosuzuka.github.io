@@ -1,0 +1,145 @@
+@use 'setting' as *;
+/*-----------------------------------------------------------------------------------------
+    汎用
+-----------------------------------------------------------------------------------------*/
+@mixin header() {
+	#header {
+		@content;
+	}
+}
+@mixin footer() {
+	#footer {
+		@content;
+	}
+}
+
+// メディアクエリー
+$BP_MAX: 1800px;
+$BP_PC: 1366px;
+$BP_HD: 1000px;
+$BP_HD2: 999px;
+$BP_TM: 769px;
+$BP_TB: 768px;
+$BP_TB2: 767px;
+$BP_SP: 428px;
+$BP_SP2: 374px;
+@mixin media-max($breakPoint) {
+    @media screen and (max-width: $breakPoint) {
+        @content;
+    }
+}
+@mixin media-min($breakPoint) {
+    @media screen and (min-width: $breakPoint) {
+        @content;
+    }
+}
+@mixin media($breakPoint_min, $breakPoint_max) {
+    @media screen and (min-width: $breakPoint_min) and (max-width: $breakPoint_max) {
+        @content;
+    }
+}
+
+// 背景画像
+$PATH_IMG: "../img/";
+@mixin bgimg($fileName, $x:50%, $y:50%, $repeat:no-repeat) {
+	background-image: url($PATH_IMG + $fileName);
+	background-position: $x $y;
+	background-repeat: $repeat;
+	@content;
+}
+
+// ボタン
+@mixin btn($fpx:16px, $line:1.2) {
+	display: inline-block;
+	user-select: none;
+	border: 1px solid transparent;
+	background: none;
+	text-decoration: none;
+	text-align: center;
+	font-size: $fpx;
+	line-height: $line;
+	word-break:break-all;
+	text-overflow:clip;
+	cursor: pointer;
+	overflow: hidden;
+	@content;
+}
+
+// アイコン
+@mixin icon($fileName, $width, $height) {
+	display: inline-block;
+	margin-right: 10px;
+	background: url($PATH_IMG + $fileName) no-repeat 50% 50%;
+	background-size: $width $height;
+	width: $width;
+	height: $height;
+}
+
+//中央寄せ
+@mixin center($direction) {
+	position: absolute;
+	@if $direction==xy {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	@else if $direction==x {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	@else if $direction==y {
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+// グラデーション
+@mixin gradient($startColor, $endColor, $orientation: ttob) {
+	background: $startColor;
+	@if $orientation == ttob {
+		background: -webkit-linear-gradient(top, #{$startColor} 0%, #{$endColor} 100%);
+		background: linear-gradient(to bottom, #{$startColor} 0%,  #{$endColor} 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$startColor}', endColorstr=' #{$endColor}', GradientType=0);
+	} @else if $orientation == ltor {
+		background: -webkit-linear-gradient(right, #{$startColor} 0%, #{$endColor} 100%);
+		background: linear-gradient(to right, #{$startColor} 0%,  #{$endColor} 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$startColor}', endColorstr=' #{$endColor}', GradientType=1);
+	}
+}
+
+// aタグ初期化
+@mixin areset($atc:$c_t,$alc:$c_l,$tdeco:none) {
+	a {
+		text-decoration: none;
+		color: $atc;
+		@include media-min($BP_TB){
+		&:hover {
+			color: $alc;
+			text-decoration: $tdeco;
+		}
+		}
+	}
+}
+
+/*-----------------------------------------------------------------------------------------
+    専用
+-----------------------------------------------------------------------------------------*/
+
+/* タイトルエリア */
+@mixin ttlA($mt, $jc:space-between, $ait:center) {
+	margin: $mt auto 0;
+	max-width: $inW;
+	display: flex;
+	justify-content: $jc;
+	align-items: $ait;
+}
+
+
+/* タイトルエリア */
+@mixin jost($weight:400) {
+	font-family: "Jost", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: $weight;
+	font-style: normal;
+	font-display: swap;
+}
